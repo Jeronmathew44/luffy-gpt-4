@@ -16,7 +16,7 @@ async def chatbots(_: Client,m: t.Message):
     if model == "bard":
         output, images = output
         if len(images) == 0:
-            return await m.reply_text(text=f"ʜᴇʏ {message.from_user.mention}\n ǫᴜᴇʀʏ ɪs:- {output}\n\nResults:\n\n{ai_response}")
+            return await m.reply_text(text=f"ʜᴇʏ {message.from_user.mention}\n ǫᴜᴇʀʏ ɪs:- {output}")
         media = []
         for i in images:
             media.append(t.InputMediaPhoto(i))
