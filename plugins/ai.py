@@ -10,7 +10,7 @@ async def chatbots(_: Client,m: t.Message):
     if media is not None:
         return await askAboutImage(_,m,[media],prompt)
     if prompt is None:
-        return await m.reply_text("Hello, How can i assist you today?")
+        return await m.reply_text("Give An input !! ")
     model = m.command[0].lower()
     output = await ChatCompletion(prompt,model)
     if model == "bard":
@@ -27,7 +27,8 @@ async def chatbots(_: Client,m: t.Message):
             reply_to_message_id=m.id
             )
         return
-    await m.reply_text(output['parts'][0]['text'] if model=="gemini" else output)
+    ai_response = output['parts'][0]['text'] if model=="gemini" else output
+    await message.reply_text(text=f"ʜᴇʏ {message.from_user.mention}\n ǫᴜᴇʀʏ ɪs:- {output}\n\nResults:\n\n{ai_response}")
 
 async def askAboutImage(_:Client,m:t.Message,mediaFiles: list,prompt:str):
     images = []
