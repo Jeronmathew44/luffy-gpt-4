@@ -5,6 +5,7 @@ from Utils import getText,ChatCompletion,getMedia,geminiVision
 
 @Client.on_message(filters.command(["gpt","bard","llama","mistral","palm","gemini"]))
 async def chatbots(_: Client,m: t.Message):
+    text = message.text.split(" ", 1)[1]
     prompt = getText(m)
     media = getMedia(m)
     if media is not None:
@@ -16,7 +17,7 @@ async def chatbots(_: Client,m: t.Message):
     if model == "bard":
         output, images = output
         if len(images) == 0:
-            return await m.reply_text(text=f"ʜᴇʏ {m.from_user.mention}\n ǫᴜᴇʀʏ ɪs:- {output}")
+            return await m.reply_text(text=f"ʜᴇʏ {m.from_user.mention}\n ǫᴜᴇʀʏ ɪs:- {text}\n\nResults:\n\n{output}")
         media = []
         for i in images:
             media.append(t.InputMediaPhoto(i))
@@ -27,8 +28,7 @@ async def chatbots(_: Client,m: t.Message):
             reply_to_message_id=m.id
             )
         return
-    ai_response = output['parts'][0]['text'] if model=="gemini" else output
-    await m.reply_text(text=f"ʜᴇʏ {m.from_user.mention}\n ǫᴜᴇʀʏ ɪs:- {output}\n\nResults:\n\n{ai_response}")
+    await m.reply_text(text=f"ʜᴇʏ {m.from_user.mention}\n ǫᴜᴇʀʏ ɪs:- {text}\n\nResults:\n\n{output['parts'][0]['text'] if model=="gemini" else output}")
 
 async def askAboutImage(_:Client,m:t.Message,mediaFiles: list,prompt:str):
     images = []
