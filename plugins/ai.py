@@ -16,7 +16,7 @@ async def chatbots(_: Client,m: t.Message):
     if model == "bard":
         output, images = output
         if len(images) == 0:
-            return await message.reply_text(text=f"ʜᴇʏ {message.from_user.mention}\n ǫᴜᴇʀʏ ɪs:- {output}\n\nResults:\n\n{ai_response}")
+            return await m.reply_text(text=f"ʜᴇʏ {message.from_user.mention}\n ǫᴜᴇʀʏ ɪs:- {output}\n\nResults:\n\n{ai_response}")
         media = []
         for i in images:
             media.append(t.InputMediaPhoto(i))
@@ -28,7 +28,7 @@ async def chatbots(_: Client,m: t.Message):
             )
         return
     ai_response = output['parts'][0]['text'] if model=="gemini" else output
-    await message.reply_text(text=f"ʜᴇʏ {message.from_user.mention}\n ǫᴜᴇʀʏ ɪs:- {output}\n\nResults:\n\n{ai_response}")
+    await m.reply_text(text=f"ʜᴇʏ {message.from_user.mention}\n ǫᴜᴇʀʏ ɪs:- {output}\n\nResults:\n\n{ai_response}")
 
 async def askAboutImage(_:Client,m:t.Message,mediaFiles: list,prompt:str):
     images = []
