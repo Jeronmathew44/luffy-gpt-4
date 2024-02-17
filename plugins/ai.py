@@ -11,7 +11,6 @@ async def chatbots(_: Client,m: t.Message):
         return await askAboutImage(_,m,[media],prompt)
     if prompt is None:
         return await m.reply_text("Give An input !! ")
-        await s.delete()
     text = m.text.split(" ", 1)[1]
     model = m.command[0].lower()
     output = await ChatCompletion(prompt,model)
@@ -19,7 +18,6 @@ async def chatbots(_: Client,m: t.Message):
         output, images = output
         if len(images) == 0:
             return await m.reply_text(text=f"ʜᴇʏ {m.from_user.mention}\n ǫᴜᴇʀʏ ɪs:- {text}\n\nResults:\n\n{output}")
-            await s.delete()
         media = []
         for i in images:
             media.append(t.InputMediaPhoto(i))
@@ -32,7 +30,6 @@ async def chatbots(_: Client,m: t.Message):
         return
     ai_response = output['parts'][0]['text'] if model=="gemini" else output
     await m.reply_text(text=f"ʜᴇʏ {m.from_user.mention}\n ǫᴜᴇʀʏ ɪs:- {text}\n\nResults:\n\n{ai_response}")
-    await s.delete()
 
 async def askAboutImage(_:Client,m:t.Message,mediaFiles: list,prompt:str):
     images = []
