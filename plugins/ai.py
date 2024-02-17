@@ -5,7 +5,7 @@ from Utils import getText,ChatCompletion,getMedia,geminiVision
 
 @Client.on_message(filters.command(["gpt","bard","llama","mistral","palm","gemini"]))
 async def chatbots(_: Client,m: t.Message):
-    text = message.text.split(" ", 1)[1]
+    text = m.text.split(" ", 1)[1]
     prompt = getText(m)
     media = getMedia(m)
     if media is not None:
