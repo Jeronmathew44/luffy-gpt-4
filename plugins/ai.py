@@ -5,13 +5,13 @@ from Utils import getText,ChatCompletion,getMedia,geminiVision
 
 @Client.on_message(filters.command(["gpt","bard","llama","mistral","palm","gemini"]))
 async def chatbots(_: Client,m: t.Message):
-    text = m.text.split(" ", 1)[1]
     prompt = getText(m)
     media = getMedia(m)
     if media is not None:
         return await askAboutImage(_,m,[media],prompt)
     if prompt is None:
         return await m.reply_text("Give An input !! ")
+    text = m.text.split(" ", 1)[1]
     model = m.command[0].lower()
     output = await ChatCompletion(prompt,model)
     if model == "bard":
