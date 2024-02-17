@@ -2,8 +2,9 @@
 
 from pyrogram import Client, filters, types as t
 from Utils import getText,ChatCompletion,getMedia,geminiVision
+from config import *
 
-@Client.on_message(filters.command(["gpt","bard","llama","mistral","palm","gemini"]))
+@Client.on_message(filters.command(["gpt","bard","llama","mistral","palm","gemini"]) & filters.chat(SUPPORT_GROUP))
 async def chatbots(_: Client,m: t.Message):
     prompt = getText(m)
     media = getMedia(m)
