@@ -30,7 +30,7 @@ async def chatbots(_: Client,m: t.Message):
             reply_to_message_id=m.id
             )
         return
-    s = await message.reply_sticker("CAACAgQAAxkBAAELHDhlmn1cxY6clm6BgZoURPY-xywq4gACbg8AAuHqsVDaMQeY6CcRojQE")
+    s = await m.reply_sticker("CAACAgQAAxkBAAELHDhlmn1cxY6clm6BgZoURPY-xywq4gACbg8AAuHqsVDaMQeY6CcRojQE")
     ai_response = output['parts'][0]['text'] if model=="gemini" else output
     await m.reply_text(text=f"ʜᴇʏ {m.from_user.mention}\n ǫᴜᴇʀʏ ɪs:- {text}\n\nResults:\n\n{ai_response}")
     await s.delete()
