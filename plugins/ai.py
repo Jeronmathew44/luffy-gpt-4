@@ -13,12 +13,14 @@ async def chatbots(_: Client,m: t.Message):
     if prompt is None:
         return await m.reply_text("Give An input !! ")
     text = m.text.split(" ", 1)[1]
+    s = await message.reply_text("⏳")
     model = m.command[0].lower()
     output = await ChatCompletion(prompt,model)
     if model == "bard":
         output, images = output
         if len(images) == 0:
             return await m.reply_text(text=f"ʜᴇʏ {m.from_user.mention}\n ǫᴜᴇʀʏ ɪs:- {text}\n\nResults:\n\n{output}")
+            await s.delete()
         media = []
         for i in images:
             media.append(t.InputMediaPhoto(i))
@@ -31,6 +33,7 @@ async def chatbots(_: Client,m: t.Message):
         return
     ai_response = output['parts'][0]['text'] if model=="gemini" else output
     await m.reply_text(text=f"ʜᴇʏ {m.from_user.mention}\n ǫᴜᴇʀʏ ɪs:- {text}\n\nResults:\n\n{ai_response}")
+    await s.delete()
 
 async def askAboutImage(_:Client,m:t.Message,mediaFiles: list,prompt:str):
     images = []
@@ -39,3 +42,4 @@ async def askAboutImage(_:Client,m:t.Message,mediaFiles: list,prompt:str):
         images.append(image)
     output = await geminiVision(prompt if prompt else "whats this?","geminiVision",images)
     await m.reply_text(output)
+    await s.delete()
