@@ -13,7 +13,7 @@ async def chatbots(_: Client,m: t.Message):
     if prompt is None:
         return await m.reply_text("Give An input !! ")
     text = m.text.split(" ", 1)[1]
-    s = await message.reply_text("⏳")
+    s = await m.reply_text("⏳")
     model = m.command[0].lower()
     output = await ChatCompletion(prompt,model)
     if model == "bard":
